@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="agent.monitor.pickAndRecived :: header"></head>
+<link href="/css/login.css" rel="stylesheet">
+<body>
+<div class="panel panel-default" style="margin: 20px 25px;padding: 30px 30px;">
+    <div class="row">
+        <form id="searchForm">
+            <div class="col-lg-10 col-md-9">
+                <div class="row">
+                    <div style="margin-top:20px;clear:both;overflow:hidden;">
+                        <div class="btn-group tool-button padding_sty" style="display:inline;">
+                            <div style="float:left;padding-left: 5px;padding-right: 5px;margin-top:8px;">
+                                <label>查询时间：</label>
+                            </div>
+                            <div class="input-group date form_datetime " style="width:100px;float:left;margin-left:10px;padding-left: 5px;padding-right: 5px" data-date-format="dd MM yyyy " data-link-field="beginDate">
+                                <input style="width:160px;" type="text" id="startCreateTime" name="startCreateTime" size="16" readonly="true" class="form-control" value="${@date.getOneDayAgoHMS()}" data-parsley-required="true">
+                                <span class="input-group-addon" style="margin-top:100px"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="beginDate" value="${@date.getOneDayAgoHMS()}">
+                            <div class="input-group date form_datetime" style="width:100px;float:left;padding-left: 5px;padding-right: 5px" data-date-format="dd MM yyyy hh:ii:ss" data-link-field="endDate">
+                                <input style="width:160px;"type="text" id="endCreateTime"  name="endCreateTime"size="16" readonly="true" class="form-control" value="${@date.getOneDayAgoHMS()}" data-parsley-required="true">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="endDate" value="${@date.getOneDayAgoHMS()}">
+                        </div>
+                        <div class="form-group" style="display:inline;margin-left:15px;">
+                            <label for="cmn_code">门店编码：</label>
+                            <input class="form-control" style="display:inline;width:200px;" type="text" id="cmn_code" name="cmn_code" placeholder="门店编码">
+                        </div>
+                        <div class="form-group" style="display:inline;margin-left:15px;">
+                            <label for="agent_name">门店名称：</label>
+                            <input class="form-control" style="display:inline;width:200px;" type="text" id="agent_name" name="agent_name" placeholder="门店名称">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-lg-2 col-md-3 text-right" style="margin-top:48px;">
+            <button class="btn btn-primary navbar-btn" onclick="reload();"><i class="fa fa-search"></i> 查询</button>
+            <button class="btn btn-primary navbar-btn" onclick="reSearch();"><i class="fa fa-undo"></i> 重置</button>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default" style="margin: 15px 25px 15px 25px;">
+    <div class="panel-heading">
+        <button class="btn btn-primary" onclick="exportData();"><i class="fa fa-download"></i> 导出</button>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="totalData" class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>所属网点</th>
+                    <th>到件票数</th>
+                    <th>签收票数</th>
+                    <th>揽件票数</th>
+                    <th>门店地址</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="sendDiv" class="panel panel-default" style="margin: 15px 25px 15px 25px;display:none;">
+    <div class="panel-heading">
+        <span style="font-weight:bold">到件/签收详情</span>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="sendData" class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>快递公司</th>
+                    <th>运单号</th>
+                    <th>到件时间</th>
+                    <th>签收时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="pickDiv" class="panel panel-default" style="margin: 15px 25px 15px 25px;display:none;">
+    <div class="panel-heading">
+        <span style="font-weight:bold">揽件详情</span>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="pickData" class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>快递公司</th>
+                    <th>运单号</th>
+                    <th>揽件时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="dialog" class="modal fade bs-modal-sm" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">反馈详情--</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="infoDetail" style="text-align:center">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="agent_hidden_id" type="hidden"></input>
+<input id="cnt_type" type="hidden"></input>
+<form id="top5">
+    <input id="agent_top_type" name="agent_top_type" value="total" type="hidden"></input>
+    <input id="active_type" name="active_type" value="dateLine" type="hidden"></input>
+    <input id="date_line" name="date_line" value="15" type="hidden"></input>
+    <input id="top_start_time" name="top_start_time" type="hidden"></input>
+    <input id="top_end_time" name="top_end_time" type="hidden"></input>
+</form>
+<input id="hidden_time_start" type="hidden" value="${@date.getOneDayAgoHMS()}"></input>
+<input id="hidden_time_end"  type="hidden" value="${@date.getOneDayAgoHMS()}"></input>
+<script type="text/javascript" src="/js/appjs/agent/monitor/wdMonitor.js"></script>
+</body>
+</html>

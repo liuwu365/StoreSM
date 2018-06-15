@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="id" name="id" th:value="${shop.id}"  type="hidden">
+							<input id="Sprovince" name="Sprovince" th:value="${shop.provinceId}" type="hidden">
+							<input id="Scity" name="Scity" th:value="${shop.cityId}" type="hidden">
+							<input id="Scounty" name="Scounty" th:value="${shop.countyId}" type="hidden">
+							<input id="SbranchCode" name="SbranchCode" th:value="${shop.branchCode}" type="hidden">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">门店名称：</label>
+								<div class="col-sm-8">
+									<input id="shopName" name="shopName" th:value="${shop.shopName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">品牌编码：</label>
+								<div class="col-sm-8">
+									<select name="enterpriseCode" id="enterpriseCode"
+											class="select2 form-control" disabled>
+										<option value="">&nbsp;</option>
+										<option th:each="enterprise : ${enterprises}" th:value="${enterprise.enterpriseCode}" th:text="${enterprise.enterpriseName}" th:selected="selected"></option>
+									</select>
+								</div>
+							</div>
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">门店编码：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="shopCode" name="shopCode" th:value="${shop.shopCode}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">省、市、区：</label>
+								<div class="col-sm-2">
+									<select id="provinceId" name="provinceId" class="select2 form-control">
+										<option value="">&nbsp;</option>
+										<option th:each="province : ${provinces}" th:value="${province.value}" th:text="${province.name}" th:if="${province.remarks ==checked}" th:selected="selected"></option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<select id="cityId" name="cityId" class="select2 form-control">
+										<option value="">&nbsp;</option>
+										<option th:each="city : ${citys}" th:value="${city.value}" th:text="${city.name}" th:if="${city.remarks ==checked}" th:selected="selected"></option>
+									</select>
+								</div>
+								<div class="col-sm-2">
+									<select id="countyId" name="countyId" class="select2 form-control">
+										<option value="">&nbsp;</option>
+										<option th:each="county : ${countys}" th:value="${county.value}" th:text="${county.name}" th:if="${county.remarks ==checked}" th:selected="selected"></option>
+									</select>
+							   </div>
+									<!--<input id="provinceId" name="provinceId" th:value="${shop.provinceId}" class="form-control" type="text">-->
+									<!--<input id="cityId" name="cityId" th:value="${shop.cityId}" class="form-control" type="text">-->
+									<!--<input id="countyId" name="countyId" th:value="${shop.countyId}" class="form-control" type="text">-->
+						    </div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">门店地址：</label>
+								<div class="col-sm-4">
+									<input id="street" name="street" th:value="${shop.street}" class="form-control" type="text">
+								</div>
+								<div class="col-sm-4">
+									<input id="streetDetail" name="streetDetail" th:value="${shop.streetDetail}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group" style="display:none">
+								<label class="col-sm-3 control-label">门店经纬度：</label>
+								<div class="col-sm-4">
+									<input id="lng" name="lng" th:value="${shop.lng}" class="form-control" type="text">
+								</div>
+								<div class="col-sm-4">
+									<input id="lat" name="lat" th:value="${shop.lat}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">所属网点编码：</label>
+								<div class="col-sm-8">
+									<select id="branchCode" name="branchCode" class="select2 form-control">
+										<option value="">&nbsp;</option>
+										<option th:each="branchCode : ${branchCodes}" th:value="${branchCode.value}" th:text="${branchCode.name}" th:if="${branchCode.remarks ==checked}" th:selected="selected"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">负责人姓名：</label>
+								<div class="col-sm-8">
+									<input id="chargeName" name="chargeName" th:value="${shop.chargeName}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">负责人手机号：</label>
+								<div class="col-sm-8">
+									<input id="chargePhone" name="chargePhone" th:value="${shop.chargePhone}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">负责人身份证号：</label>
+								<div class="col-sm-8">
+									<input id="idCard" name="idCard" th:value="${shop.idCard}" class="form-control" type="text">
+								</div>
+							</div>
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createTime" name="createTime" th:value="${shop.createTime}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateTime" name="updateTime" th:value="${shop.updateTime}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createBy" name="createBy" th:value="${shop.createBy}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateBy" name="updateBy" th:value="${shop.updateBy}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">删除标识：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="deleteFlag" name="deleteFlag" th:value="${shop.deleteFlag}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">审核状态：</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> <input
+											th:field="*{shop.reviewStatus}" type="radio" name="reviewStatus" value="0" />
+										未审核
+									</label>
+									<label class="radio-inline"> <input
+											th:field="*{shop.reviewStatus}" type="radio" name="reviewStatus" value="1" />
+										审核中
+									</label>
+									<label class="radio-inline"> <input
+											th:field="*{shop.reviewStatus}" type="radio" name="reviewStatus" value="2" />
+										已审核
+									</label>								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">启用状态：</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> <input
+											th:field="*{shop.enableStatus}" type="radio" name="enableStatus" value="0" />
+										禁用
+									</label>
+									<label class="radio-inline"> <input
+											th:field="*{shop.enableStatus}" type="radio" name="enableStatus" value="1" />
+										启用
+									</label>
+									<label class="radio-inline"> <input
+											th:field="*{shop.enableStatus}" type="radio" name="enableStatus" value="2" />
+										停止
+									</label>								</div>
+							</div>
+							<div id="map" class="form-group">
+								<div id="container" class="map" style="width:82%;height:250px;margin:5px auto;border:1px solid gray"></div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" th:src="@{/js/appjs/store/shop/edit.js}">
+	</script>
+</body>
+</html>

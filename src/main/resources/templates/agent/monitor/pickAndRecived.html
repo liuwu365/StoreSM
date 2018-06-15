@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="platform :: header"></head>
+
+<link href="/css/login.css" rel="stylesheet">
+<body>
+<div class="panel panel-default"
+     style="margin: 20px 20px; overflow: auto; padding-left: 30px; padding-top: 20px;">
+    <div style="overflow: auto; float: left; width: 15%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总订单量<br> <span style="font-size: 40px; font-weight: bold;">${totalOrders!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; width: 15%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总到件量<br> <span style="font-size: 40px; font-weight: bold;">${arriveTotal!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; width: 15%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总签收量<br> <span style="font-size: 40px; font-weight: bold;">${sendTotal!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; width: 15%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总揽件量<br> <span style="font-size: 40px; font-weight: bold;">${pickTotal!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; width: 15%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总门店量<br> <span style="font-size: 40px; font-weight: bold;">${totalUser!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; width: 14%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class=panel-body>
+                总短信量<br> <span style="font-size: 40px; font-weight: bold;">${totalUser!}</span><br>
+            </div>
+        </div>
+    </div>
+    <div style="float: left; margin-top: 20px; margin-left: 10%;">
+        <div class="panel panel-default"></div>
+    </div>
+</div>
+<!-- 数据比例 -->
+<div class="panel panel-default"
+     style="margin: 20px 25px; padding: 30px 30px; overflow: auto; clean: both">
+    <div style="float: left; margin-top: 20px;">
+        <span class="fa fa-group" style="font-size: 60px"></span>
+    </div>
+    <div style="float: left; margin-left: 5%;">
+        <span style="font-size: 10px">昨日总订单量</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${totalOrder!}</span><br>
+        <span id="span1" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-left: 4%;">
+        <span style="font-size: 10px">昨日到件量</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${arriveOrder!}</span><br>
+        <span id="span6" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-left: 4%;">
+        <span style="font-size: 10px">昨日签收量</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${singedOrder!}</span><br>
+        <span id="span2" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-left: 4%;">
+        <span style="font-size: 10px">昨日揽件量</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${pickOrder!}</span><br>
+        <span id="span3" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-left: 4%;" id="vipHidden">
+        <span style="font-size: 10px">昨日新增门店数</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${singedUser!}</span><br>
+        <span id="span4" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-left: 4%;" id="vipHidden">
+        <span style="font-size: 10px">昨日短信量</span><br> <span
+            style="font-size: 40px; font-weight: bold;">${singedUser!}</span><br>
+        <span id="span7" style="font-size: 10px"></span>
+    </div>
+    <div style="float: left; margin-top: 20px; margin-left: 2%;">
+        <span class="fa fa-money" style="font-size: 60px"></span>
+    </div>
+    <div style="float: left; margin-left: 3%;">
+        <span style="font-size: 10px">昨日收益</span><br> <span
+            style="font-size: 40px; font-weight: bold;"><span
+            class="fa fa-rmb" style="margin-right: 10px;"></span>${sumOrder!}</span><br>
+        <span id="span5" style="font-size: 10px"></span>
+    </div>
+</div>
+<!-- 趋势图 -->
+<div class="panel panel-default"
+     style="margin: 20px 25px; padding: 30px 30px; overflow: auto;">
+    <div style="overflow: auto; float: left; width: 75%;">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="overflow: auto">
+                <div class="demo-box" style="float: left;">
+                    <table class="demo-table">
+                        <tr>
+                            <td><select class="ui-choose" id="uc_02">
+                                <option value="7">最近7天</option>
+                                <option value="15" selected="selected">最近15天</option>
+                                <option value="30">最近30天</option>
+                            </select></td>
+                        </tr>
+                    </table>
+                </div>
+                <div
+                        style="float: left; padding-left: 5px; padding-right: 5px; margin-top: 8px;">
+                    <label>&nbsp;自定义：</label>
+                </div>
+                <div class="input-group date pick_datetime "
+                     style="width: 100px; float: left; margin-left: 10px; padding-left: 5px; padding-right: 5px"
+                     data-date-format="dd MM yyyy " data-link-field="beginDate">
+                    <input style="width: 160px;" type="text" id="startPickTime"
+                           size="16" readonly="true" class="form-control"
+                           data-parsley-required="true"> <span
+                        class="input-group-addon" style="margin-top: 100px"><span
+                        class="glyphicon glyphicon-th"></span></span>
+                </div>
+                <input type="hidden" id="beginDate" name="startPickTime">
+                <div class="input-group date pick_datetime"
+                     style="width: 100px; float: left; padding-left: 5px; padding-right: 5px"
+                     data-date-format="dd MM yyyy hh:ii:ss" data-link-field="endDate">
+                    <input style="width: 160px;" type="text" id="endPickTime" size="16"
+                           readonly="true" class="form-control" data-parsley-required="true">
+                    <span class="input-group-addon"><span
+                            class="glyphicon glyphicon-th"></span></span>
+                </div>
+                <input type="hidden" id="endDate" name="endPickTime">
+            </div>
+            <!--  揽派件总量趋势图 -->
+            <div class=panel-body>
+                <div class="chart-container" style="margin-top: 10px;">
+                    <div id="amountChart" class="chart-left"
+                         style="width: 100%; height: 300px; float: left;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 头体 -->
+    </div>
+    <!-- left -->
+
+    <div style="float: left; width: 23%; margin-left: 2%;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="demo-box">
+                    <table class="demo-table">
+                        <tr>
+                            <td><select class="ui-choose" id="uc_03">
+                                <option value="total" selected="selected">订单量</option>
+                                <option value="cnt_arrive">到件量</option>
+                                <option value="cnt_send">签收量</option>
+                                <option value="cnt_pick">揽件量</option>
+                                <option value="cnt_pick">短信总量</option>
+                            </select></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class=panel-body>
+                <span style="font-size: 18px; font-weight: bold; color: black">订单发生量TOP5</span>
+                <a class="btn" style="float: right" onclick="exportTopData();"><i
+                        class="fa fa-download"></i> 导出</a>
+                <div class="table-responsive no-border" style="height: 282px;">
+                    <table id="topData"
+                           class="table table-bordered table-striped mg-t datatable">
+                        <thead>
+                        <tr>
+                            <th>门店名称</th>
+                            <th>订单量</th>
+                            <th>到件量</th>
+                            <th>签收量</th>
+                            <th>揽件量</th>
+                            <th>短信总量</th>
+                            <th>环比</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 门店详情查询 -->
+<div class="panel panel-default"
+     style="margin: 20px 25px; padding: 30px 30px;">
+    <div class="row">
+        <form id="searchForm">
+            <div class="col-lg-10 col-md-9">
+                <div class="row">
+                    <div style="clear: both; overflow: hidden;">
+                        <div
+                                style="float: left; padding-left: 5px; padding-right: 5px; margin-top: 8px;">
+                            <label>地点选择：</label>
+                        </div>
+                        <div class="col-lg-2 col-md-4 padding_sty">
+                            <select id="province_id" name="province_id"
+                                    class="selectpicker form-control" style="width: 100%">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 padding_sty">
+                            <select id="city_id" name="city_id"
+                                    class="selectpicker form-control" style="width: 100%">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 padding_sty">
+                            <select id="county_id" name="county_id"
+                                    class="selectpicker form-control" style="width: 100%">
+                                <option value="">&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="float: left; margin-top: 8px;">
+                            <label for="branch_name">网点名称：</label> <input
+                                class="form-control" style="display: inline; width: 200px;"
+                                type="text" id="branch_name" name="branch_name"
+                                placeholder="网点名称">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; clear: both; overflow: hidden;">
+                        <div class="btn-group tool-button padding_sty"
+                             style="display: inline;">
+                            <div
+                                    style="float: left; padding-left: 5px; padding-right: 5px; margin-top: 8px;">
+                                <label>查询时间：</label>
+                            </div>
+                            <div class="input-group date form_datetime "
+                                 style="width: 100px; float: left; margin-left: 10px; padding-left: 5px; padding-right: 5px"
+                                 data-date-format="dd MM yyyy " data-link-field="beginDate">
+                                <input style="width: 160px;" type="text" id="startCreateTime"
+                                       name="startCreateTime" size="16" readonly="true"
+                                       class="form-control" value="${@date.getOneDayAgoHMS()}"
+                                       data-parsley-required="true"> <span
+                                    class="input-group-addon" style="margin-top: 100px"><span
+                                    class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="beginDate"
+                                   value="${@date.getOneDayAgoHMS()}">
+                            <div class="input-group date form_datetime"
+                                 style="width: 100px; float: left; padding-left: 5px; padding-right: 5px"
+                                 data-date-format="dd MM yyyy hh:ii:ss" data-link-field="endDate">
+                                <input style="width: 160px;" type="text" id="endCreateTime"
+                                       name="endCreateTime" size="16" readonly="true"
+                                       class="form-control" value="${@date.getOneDayAgoHMS()}"
+                                       data-parsley-required="true"> <span
+                                    class="input-group-addon"><span
+                                    class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="endDate"
+                                   value="${@date.getOneDayAgoHMS()}">
+                        </div>
+                        <div class="form-group"
+                             style="display: inline; margin-left: 15px;">
+                            <label for="cmn_code">门店编码：</label> <input class="form-control"
+                                                                       style="display: inline; width: 200px;" type="text" id="cmn_code"
+                                                                       name="cmn_code" placeholder="门店编码">
+                        </div>
+                        <div class="form-group"
+                             style="display: inline; margin-left: 15px;">
+                            <label for="agent_name">门店名称：</label> <input class="form-control"
+                                                                         style="display: inline; width: 200px;" type="text"
+                                                                         id="agent_name" name="agent_name" placeholder="门店名称">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-lg-2 col-md-3 text-right" style="margin-top: 48px;">
+            <button class="btn btn-primary navbar-btn" onclick="reload();">
+                <i class="fa fa-search"></i> 查询
+            </button>
+            <button class="btn btn-primary navbar-btn" onclick="reSearch();">
+                <i class="fa fa-undo"></i> 重置
+            </button>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default" style="margin: 15px 25px 15px 25px;">
+    <div class="panel-heading">
+        <button class="btn btn-primary" onclick="exportData();">
+            <i class="fa fa-download"></i> 导出
+        </button>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="totalData"
+                   class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>所属网点</th>
+                    <th>到件票数</th>
+                    <th>签收票数</th>
+                    <th>揽件票数</th>
+                    <th>短信总量</th>
+                    <th>短信成功量</th>
+                    <th>门店地址</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 到件/签收详情 -->
+<div id="sendDiv" class="panel panel-default"
+     style="margin: 15px 25px 15px 25px; display: none;">
+    <div class="panel-heading">
+        <span style="font-weight: bold">到件/签收详情</span>&nbsp;
+        <button class="btn btn-primary" onclick="exportSendData();">
+            <i class="fa fa-download"></i> 导出
+        </button>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="sendData"
+                   class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>快递公司</th>
+                    <th>运单号</th>
+                    <th>到件时间</th>
+                    <th>签收时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 揽件详情 -->
+<div id="pickDiv" class="panel panel-default"
+     style="margin: 15px 25px 15px 25px; display: none;">
+    <div class="panel-heading">
+        <span style="font-weight: bold">揽件详情</span>&nbsp;
+        <button class="btn btn-primary" onclick="exportPickData();">
+            <i class="fa fa-download"></i> 导出
+        </button>
+    </div>
+    <div class=panel-body>
+        <div class="table-responsive no-border">
+            <table id="pickData"
+                   class="table table-bordered table-striped mg-t datatable">
+                <thead>
+                <tr>
+                    <th>门店名称</th>
+                    <th>门店编码</th>
+                    <th>快递公司</th>
+                    <th>订单号</th>
+                    <th>揽件时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="dialog" class="modal fade bs-modal-sm" tabindex="-2"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                <h4 class="modal-title">反馈详情--</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="infoDetail" style="text-align: center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="sendAndPickForm">
+    <input id="agent_hidden_id" name="agent_id" type="hidden"></input> <input
+        id="cnt_type" name="cnt_type" type="hidden"></input> <input
+        id="hidden_time_start" name="startCreateTime" type="hidden"
+        value="${@date.getOneDayAgoHMS()}"></input> <input
+        id="hidden_time_end" name="endCreateTime" type="hidden"
+        value="${@date.getOneDayAgoHMS()}"></input>
+</form>
+<form id="top5">
+    <input id="agent_top_type" name="agent_top_type" value="total" type="hidden"></input>
+    <input id="active_type" name="active_type" value="dateLine" type="hidden"></input>
+    <input id="date_line" name="date_line" value="15" type="hidden"></input>
+    <input id="top_start_time" name="top_start_time" type="hidden"></input>
+    <input id="top_end_time" name="top_end_time" type="hidden"></input>
+
+</form>
+<script type="text/javascript" src="/js/appjs/agent/monitor/monitor.js"></script>
+</body>
+</html>

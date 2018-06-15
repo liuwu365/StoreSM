@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunda.store.store.dao.BrandDao">
+
+	<select id="get" resultType="com.yunda.store.store.domain.BrandDO">
+		select `id`,`enterprise_name`,`app_key`,`enterprise_address`,`enterprise_code`,`contact_name`,`mobile`,`email`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status` from ap_shop_brand where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.yunda.store.store.domain.BrandDO">
+		select `id`,`enterprise_name`,`app_key`,`enterprise_address`,`enterprise_code`,`contact_name`,`mobile`,`email`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status` from ap_shop_brand
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="enterpriseName != null and enterpriseName != ''"> and enterprise_name = #{enterpriseName} </if>
+			<if test="appKey != null and appKey != ''"> and app_key = #{appKey} </if>
+			<if test="enterpriseAddress != null and enterpriseAddress != ''"> and enterprise_address = #{enterpriseAddress} </if>
+			<if test="enterpriseCode != null and enterpriseCode != ''"> and enterprise_code = #{enterpriseCode} </if>
+			<if test="contactName != null and contactName != ''"> and contact_name = #{contactName} </if>
+			<if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+			<if test="email != null and email != ''"> and email = #{email} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+			<if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+			<if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+			<if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+			<if test="reviewStatus != null and reviewStatus != ''"> and review_status = #{reviewStatus} </if>
+			<if test="enableStatus != null and enableStatus != ''"> and enable_status = #{enableStatus} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from ap_shop_brand
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="enterpriseName != null and enterpriseName != ''"> and enterprise_name = #{enterpriseName} </if>
+			<if test="appKey != null and appKey != ''"> and app_key = #{appKey} </if>
+			<if test="enterpriseAddress != null and enterpriseAddress != ''"> and enterprise_address = #{enterpriseAddress} </if>
+			<if test="enterpriseCode != null and enterpriseCode != ''"> and enterprise_code = #{enterpriseCode} </if>
+			<if test="contactName != null and contactName != ''"> and contact_name = #{contactName} </if>
+			<if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+			<if test="email != null and email != ''"> and email = #{email} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+			<if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+			<if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+			<if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+			<if test="reviewStatus != null and reviewStatus != ''"> and review_status = #{reviewStatus} </if>
+			<if test="enableStatus != null and enableStatus != ''"> and enable_status = #{enableStatus} </if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="com.yunda.store.store.domain.BrandDO" useGeneratedKeys="true" keyProperty="id">
+		insert into ap_shop_brand
+		(
+		`enterprise_name`,
+		`app_key`,
+		`enterprise_address`,
+		`enterprise_code`,
+		`contact_name`,
+		`mobile`,
+		`email`,
+		`create_time`,
+		`update_time`,
+		`create_by`,
+		`update_by`,
+		`delete_flag`,
+		`review_status`,
+		`enable_status`
+		)
+		values
+		(
+		#{enterpriseName},
+		#{appKey},
+		#{enterpriseAddress},
+		#{enterpriseCode},
+		#{contactName},
+		#{mobile},
+		#{email},
+		#{createTime},
+		#{updateTime},
+		#{createBy},
+		#{updateBy},
+		#{deleteFlag},
+		#{reviewStatus},
+		#{enableStatus}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.yunda.store.store.domain.BrandDO">
+		update ap_shop_brand
+		<set>
+			<if test="enterpriseName != null">`enterprise_name` = #{enterpriseName}, </if>
+			<if test="appKey != null">`app_key` = #{appKey}, </if>
+			<if test="enterpriseAddress != null">`enterprise_address` = #{enterpriseAddress}, </if>
+			<if test="enterpriseCode != null">`enterprise_code` = #{enterpriseCode}, </if>
+			<if test="contactName != null">`contact_name` = #{contactName}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="deleteFlag != null">`delete_flag` = #{deleteFlag}, </if>
+			<if test="reviewStatus != null">`review_status` = #{reviewStatus}, </if>
+			<if test="enableStatus != null">`enable_status` = #{enableStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="remove">
+		delete from ap_shop_brand where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from ap_shop_brand where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="listByReviewStatus" resultType="com.yunda.store.store.domain.BrandDO">
+		select `id`,`enterprise_name`,`app_key`,`enterprise_address`,`enterprise_code`,`contact_name`,`mobile`,`email`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status`
+		from ap_shop_brand
+		where review_status = 2
+	</select>
+	<select id="getByEnterpriseCode" resultType="String">
+		select `enterprise_name`
+		from ap_shop_brand
+		where enterprise_code = #{enterpriseCode}
+	</select>
+</mapper>

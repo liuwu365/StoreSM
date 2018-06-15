@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunda.store.store.dao.ShopDao">
+
+	<select id="get" resultType="com.yunda.store.store.domain.ShopDO">
+		select `id`,`shop_name`,`enterprise_code`,`shop_code`,`province_id`,`city_id`,`county_id`,`street`,`street_detail`,`lng`,`lat`,`branch_code`,`charge_name`,`charge_phone`,`id_card`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status` from ap_shop where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.yunda.store.store.domain.vo.ShopVO">
+		select `id`,`shop_name`,`enterprise_code`,`shop_code`,`province_id`,`city_id`,`county_id`,`street`,`street_detail`,`lng`,`lat`,`branch_code`,`charge_name`,`charge_phone`,`id_card`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status` from ap_shop
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="shopName != null and shopName != ''"> and shop_name = #{shopName} </if>
+			<if test="enterpriseCode != null and enterpriseCode != ''"> and enterprise_code = #{enterpriseCode} </if>
+			<if test="shopCode != null and shopCode != ''"> and shop_code = #{shopCode} </if>
+			<if test="provinceId != null and provinceId != ''"> and province_id = #{provinceId} </if>
+			<if test="cityId != null and cityId != ''"> and city_id = #{cityId} </if>
+			<if test="countyId != null and countyId != ''"> and county_id = #{countyId} </if>
+			<if test="street != null and street != ''"> and street = #{street} </if>
+			<if test="streetDetail != null and streetDetail != ''"> and street_detail = #{streetDetail} </if>
+			<if test="lng != null and lng != ''"> and lng = #{lng} </if>
+			<if test="lat != null and lat != ''"> and lat = #{lat} </if>
+			<if test="branchCode != null and branchCode != ''"> and branch_code = #{branchCode} </if>
+			<if test="chargeName != null and chargeName != ''"> and charge_name = #{chargeName} </if>
+			<if test="chargePhone != null and chargePhone != ''"> and charge_phone = #{chargePhone} </if>
+			<if test="idCard != null and idCard != ''"> and id_card = #{idCard} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+			<if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+			<if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+			<if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+			<if test="reviewStatus != null and reviewStatus != ''"> and review_status = #{reviewStatus} </if>
+			<if test="enableStatus != null and enableStatus != ''"> and enable_status = #{enableStatus} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from ap_shop
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="shopName != null and shopName != ''"> and shop_name = #{shopName} </if>
+			<if test="enterpriseCode != null and enterpriseCode != ''"> and enterprise_code = #{vipCode} </if>
+			<if test="shopCode != null and shopCode != ''"> and shop_code = #{shopCode} </if>
+			<if test="provinceId != null and provinceId != ''"> and province_id = #{provinceId} </if>
+			<if test="cityId != null and cityId != ''"> and city_id = #{cityId} </if>
+			<if test="countyId != null and countyId != ''"> and county_id = #{countyId} </if>
+			<if test="street != null and street != ''"> and street = #{street} </if>
+			<if test="streetDetail != null and streetDetail != ''"> and street_detail = #{streetDetail} </if>
+			<if test="lng != null and lng != ''"> and lng = #{lng} </if>
+			<if test="lat != null and lat != ''"> and lat = #{lat} </if>
+			<if test="branchCode != null and branchCode != ''"> and branch_code = #{branchCode} </if>
+			<if test="chargeName != null and chargeName != ''"> and charge_name = #{chargeName} </if>
+			<if test="chargePhone != null and chargePhone != ''"> and charge_phone = #{chargePhone} </if>
+			<if test="idCard != null and idCard != ''"> and id_card = #{idCard} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+			<if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+			<if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+			<if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+			<if test="reviewStatus != null and reviewStatus != ''"> and review_status = #{reviewStatus} </if>
+			<if test="enableStatus != null and enableStatus != ''"> and enable_status = #{enableStatus} </if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="com.yunda.store.store.domain.ShopDO" useGeneratedKeys="true" keyProperty="id">
+		insert into ap_shop
+		(
+		`shop_name`,
+		`enterprise_code`,
+		`shop_code`,
+		`province_id`,
+		`city_id`,
+		`county_id`,
+		`street`,
+		`street_detail`,
+		`lng`,
+		`lat`,
+		`branch_code`,
+		`charge_name`,
+		`charge_phone`,
+		`id_card`,
+		`create_time`,
+		`update_time`,
+		`create_by`,
+		`update_by`,
+		`delete_flag`,
+		`review_status`,
+		`enable_status`
+		)
+		values
+		(
+		#{shopName},
+		#{enterpriseCode},
+		#{shopCode},
+		#{provinceId},
+		#{cityId},
+		#{countyId},
+		#{street},
+		#{streetDetail},
+		#{lng},
+		#{lat},
+		#{branchCode},
+		#{chargeName},
+		#{chargePhone},
+		#{idCard},
+		#{createTime},
+		#{updateTime},
+		#{createBy},
+		#{updateBy},
+		#{deleteFlag},
+		#{reviewStatus},
+		#{enableStatus}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.yunda.store.store.domain.ShopDO">
+		update ap_shop
+		<set>
+			<if test="shopName != null">`shop_name` = #{shopName}, </if>
+			<if test="enterpriseCode != null">`enterprise_code` = #{enterpriseCode}, </if>
+			<if test="shopCode != null">`shop_code` = #{shopCode}, </if>
+			<if test="provinceId != null">`province_id` = #{provinceId}, </if>
+			<if test="cityId != null">`city_id` = #{cityId}, </if>
+			<if test="countyId != null">`county_id` = #{countyId}, </if>
+			<if test="street != null">`street` = #{street}, </if>
+			<if test="streetDetail != null">`street_detail` = #{streetDetail}, </if>
+			<if test="lng != null">`lng` = #{lng}, </if>
+			<if test="lat != null">`lat` = #{lat}, </if>
+			<if test="branchCode != null">`branch_code` = #{branchCode}, </if>
+			<if test="chargeName != null">`charge_name` = #{chargeName}, </if>
+			<if test="chargePhone != null">`charge_phone` = #{chargePhone}, </if>
+			<if test="idCard != null">`id_card` = #{idCard}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="deleteFlag != null">`delete_flag` = #{deleteFlag}, </if>
+			<if test="reviewStatus != null">`review_status` = #{reviewStatus}, </if>
+			<if test="enableStatus != null">`enable_status` = #{enableStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="remove">
+		delete from ap_shop where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from ap_shop where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="searchProvince" resultType="java.util.HashMap">
+		select PROVINCE_ID as id,AREA_NM as text
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and CITY_ID=0
+		and COUNTY_ID=0
+	</select>
+
+	<select id="searchCity" resultType="java.util.HashMap">
+		select city_ID as id,AREA_NM as text
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and CITY_ID != 0
+		and COUNTY_ID=0
+		and province_id = #{provinceId}
+	</select>
+	<select id="searchCounty" resultType="java.util.HashMap">
+		select county_ID as id,AREA_NM as text
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and CITY_ID != 0
+		and COUNTY_ID != 0
+		and city_id = #{cityId}
+	</select>
+	<select id="searchProvinceById" resultType="String">
+		select area_nm
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and CITY_ID=0
+		and COUNTY_ID=0
+		and province_id = #{provinceId}
+	</select>
+	<select id="searchCityById" resultType="String">
+		select area_nm
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and province_id != 0
+		and COUNTY_ID=0
+		and province_id = #{provinceId}
+		and city_id = #{cityId}
+	</select>
+	<select id="searchCountyById" resultType="String">
+		select area_nm
+		from ydserver.base_area_local
+		where COUNTRY_ID='CN'
+		and province_id != 0
+		and city_id != 0
+		and province_id = #{provinceId}
+		and city_id = #{cityId}
+		and county_id= #{countyId}
+	</select>
+
+	<select id="searchBrand" resultType="java.util.HashMap">
+		select `enterprise_code` as id,CONCAT(enterprise_name,'(',enterprise_code,')') as text
+		from ap_shop_brand
+		where review_status = 2
+		and delete_flag = 0
+		<if test="q != null and q != ''">
+			and ( enterprise_code like CONCAT(CONCAT('%',#{q},'%')) or enterprise_name like CONCAT(CONCAT('%',#{q},'%')) )
+		</if>
+	</select>
+	<select id="getShopInfo" resultType="com.yunda.store.store.domain.ShopDO">
+        select `id`,`shop_name`,`enterprise_code`,`shop_code`,`province_id`,`city_id`,`county_id`,`street`,`street_detail`,`lng`,`lat`,`branch_code`,`charge_name`,`charge_phone`,`id_card`,`create_time`,`update_time`,`create_by`,`update_by`,`delete_flag`,`review_status`,`enable_status`
+        from ap_shop
+		where delete_flag=0
+		and enterprise_code = #{enterpriseCode}
+		and shop_code = #{shopCode}
+	</select>
+</mapper>

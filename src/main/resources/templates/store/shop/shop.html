@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include::header"></head>
+<head>
+<style>
+	.form-control {
+		display: inline-block;
+		width: 70%;
+	}
+	.col-md-9 {
+		width: 150px;
+		margin-top: 11px;
+		margin-left: 600px;
+	}
+</style>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<form id="searchShop">
+						<div class="row"
+							 style="margin: 0; padding: 20px 15px; background-color: #fff; border: 1px solid #e4dce4;">
+							<div class="col-md-4">
+								<label>网点编码：</label> <input type="text" name="searchBranchCode"
+															id="searchBranchCode" class="form-control">
+							</div>
+							<div class="col-md-4">
+								<label>门店编码：</label> <input type="text" name="searchShopCode"
+															id="searchShopCode" class="form-control">
+							</div>
+						</div>
+					</form>
+					<div class="fixed-table-toolbar">
+						<div class="columns pull-left">
+							<button shiro:hasPermission="store:shop:add" type="button" class="btn  btn-primary" onclick="add()">
+								<i class="fa fa-plus" aria-hidden="true"></i>注册
+							</button>
+							<button shiro:hasPermission="store:shop:batchRemove" type="button" class="btn  btn-danger"
+								onclick="batchRemove()">
+								<i class="fa fa-trash" aria-hidden="true"></i>删除
+							</button>
+						</div>
+						<div class="col-md-9">
+							<input type="button" value="查询" onclick="query()" class="btn  btn-warning">
+							<input type="button" value="重置" onclick="resetForm()" class="btn  btn-success">
+						</div>
+						<!--<div class="columns pull-right">-->
+							<!--<button class="btn btn-success" onclick="reLoad()">查询</button>-->
+						<!--</div>-->
+						<!--<div class="columns pull-right col-md-2 nopadding">-->
+							<!--<input id="searchName" type="text" class="form-control"-->
+								<!--placeholder="">-->
+						<!--</div>-->
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+				var s_resetPwd_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="store:shop:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="store:shop:remove">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="store:shop:add">
+			<script type="text/javascript">
+				var s_add_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="store:shop:resetPwd">
+			<script type="text/javascript">
+				var s_resetPwd_h = '';
+			</script>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" th:src="@{/js/appjs/store/shop/shop.js}"></script>
+</body>
+</html>

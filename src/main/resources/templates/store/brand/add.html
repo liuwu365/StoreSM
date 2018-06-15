@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">企业全称：</label>
+								<div class="col-sm-8">
+									<input id="enterpriseName" name="enterpriseName" class="form-control" placeholder="企业全称" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">企业地址：</label>
+								<div class="col-sm-8">
+									<input id="enterpriseAddress" name="enterpriseAddress" class="form-control" placeholder="企业地址" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">联系人姓名：</label>
+								<div class="col-sm-8">
+									<input id="contactName" name="contactName" class="form-control" placeholder="联系人姓名" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">品牌手机号：</label>
+								<div class="col-sm-8">
+									<input id="mobile" name="mobile" placeholder="注册驿站品牌手机号，用于总部与驿站联系" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">邮箱地址：</label>
+								<div class="col-sm-8">
+									<input id="email" name="email" class="form-control" placeholder="邮箱地址" type="text">
+								</div>
+							</div>
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createTime" name="createTime" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateTime" name="updateTime" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createBy" name="createBy" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateBy" name="updateBy" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">删除标识：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="deleteFlag" name="deleteFlag" placeholder="默认为0 0：未删除 1：已删除" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">审核状态:</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> <input type="radio"
+																		name="reviewStatus" value="0" checked/> 未审核</label>
+									<label class="radio-inline"> <input type="radio"
+																		name="reviewStatus" value="1" /> 审核中</label>
+									<label class="radio-inline"> <input type="radio"
+																		name="reviewStatus" value="2" /> 已审核</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">启用状态:</label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> <input type="radio"
+																		name="enableStatus" value="0" checked/> 禁用</label>
+									<label class="radio-inline"> <input type="radio"
+																		name="enableStatus" value="1" /> 启用</label>
+									<label class="radio-inline"> <input type="radio"
+																		name="enableStatus" value="2" /> 停止</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" th:src="@{/js/appjs/store/brand/add.js}">
+	</script>
+</body>
+</html>
